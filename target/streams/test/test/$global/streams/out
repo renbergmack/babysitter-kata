@@ -1,8 +1,0 @@
-[debug] Running TaskDef(org.babysitter.BabysitterTest, org.scalatest.tools.Framework$$anon$1@58f5df64, false, [SuiteSelector])
-[info] Run completed in 1 second, 20 milliseconds.
-[info] Total number of tests run: 21
-[info] Suites: completed 1, aborted 0
-[info] Tests: succeeded 21, failed 0, canceled 0, ignored 0, pending 0
-[info] All tests passed.
-[debug] Passed tests:
-[debug] 	org.babysitter.BabysitterTest
