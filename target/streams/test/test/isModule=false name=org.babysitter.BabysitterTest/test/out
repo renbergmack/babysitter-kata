@@ -9,3 +9,8 @@
 [info] - should return closest hourly time when minutes less than 30
 [info] - should return closest hourly time when minutes more than 30
 [info] - should return earlier hourly time when minutes equal to 30
+[info] payFromStartToBedtime
+[info] - should return no pay if start time is past bedtime(2100) *** FAILED ***
+[info]   1 was not equal to 0 (test.scala:46)
+[info] - should return 12 dollar pay if start is before bedtime(2100) *** FAILED ***
+[info]   1 was not equal to 48 (test.scala:52)

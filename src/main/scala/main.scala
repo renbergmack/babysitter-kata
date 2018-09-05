@@ -28,6 +28,10 @@ trait BabysitterTools {
       (time - minutes) + 100
     }
   }
+
+  def payFromStartToBedtime(start: Int, end: Int): Int = {
+    1
+  }
 }
 
 object BabysitterBoot extends BabysitterTools with App {
