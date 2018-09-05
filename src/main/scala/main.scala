@@ -67,6 +67,10 @@ trait BabysitterTools {
       case (startTime, _) if (startTime <= 2400 || (100 <= startTime && startTime <= 400)) => 0
     }
   }
+
+  def payFromMidnightToEnd(start: Int, end: Int): Int = {
+    1
+  }
 }
 
 object BabysitterBoot extends BabysitterTools with App {
