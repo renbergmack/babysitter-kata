@@ -11,6 +11,14 @@
 [info] - should return earlier hourly time when minutes equal to 30
 [info] payFromStartToBedtime
 [info] - should return no pay if start is past bedtime(2100)
-[info] - should return 12 dollar pay if start is before bedtime(2100)
-[info] - should return 12 dollar pay if end is greater than(2100)
-[info] - should return 12 dollar pay if end is less than(2100)
+[info] - should return 12 dollar pay if start is before bedtime
+[info] - should return 12 dollar pay if end is after bedtime
+[info] - should return 12 dollar pay if end is before bedtime
+[info] payFromBedtimeToMidnight
+[info] - should return no pay if start time is past midnight(2400)
+[info] - should return 8 dollar pay if start is between bedtime and midnight *** FAILED ***
+[info]   0 was not equal to 16 (test.scala:76)
+[info] - should return 8 dollar pay if end is after midnight *** FAILED ***
+[info]   0 was not equal to 16 (test.scala:82)
+[info] - should return 8 dollar pay if end is before midnight *** FAILED ***
+[info]   0 was not equal to 16 (test.scala:88)
