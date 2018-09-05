@@ -19,6 +19,10 @@ trait BabysitterTools {
       400
     }
   }
+
+  def roundToNearestHour(time: Int): Int = {
+    time
+  }
 }
 
 object BabysitterBoot extends BabysitterTools with App {

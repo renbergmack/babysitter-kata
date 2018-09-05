@@ -24,4 +24,19 @@ class BabysitterTest extends FlatSpec with BabysitterTools {
     val earlyEnd: Int = 300
     validateEndTime(earlyEnd) should be (300)
   }
+
+  "roundToNearestHour" should "return closest hourly time when minutes less than 30" in {
+    val earlyStart: Int = 1725
+    roundToNearestHour(earlyStart) should be (1700)
+  }
+
+  it should "return closest hourly time when minutes more than 30" in {
+    val lateStart: Int = 1735
+    roundToNearestHour(lateStart) should be (1800)
+  }
+
+  it should "return earlier hourly time when minutes equal to 30" in {
+    val evenStart: Int = 1730
+    roundToNearestHour(evenStart) should be (1700)
+  }
 }
