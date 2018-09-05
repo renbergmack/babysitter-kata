@@ -19,12 +19,6 @@
 [info] - should return 8 dollar pay if start is at bedtime
 [info] - should return 8 dollar pay if end is after midnight
 [info] - should return 8 dollar pay if start and end is between bedtime and midnight
-[info] payFromMidnightToEnd
-[info] - should return no pay if start time is past end(400) *** FAILED ***
-[info]   1 was not equal to 0 (test.scala:94)
-[info] - should return 8 dollar pay if start is at midnight *** FAILED ***
-[info]   1 was not equal to 64 (test.scala:100)
-[info] - should return 8 dollar pay if end is after midnight *** FAILED ***
-[info]   1 was not equal to 64 (test.scala:106)
-[info] - should return 8 dollar pay if start and end is between midnight and end *** FAILED ***
-[info]   1 was not equal to 32 (test.scala:112)
+[info] - should return 16 dollar pay if start is at midnight
+[info] - should return 16 dollar pay if end is after midnight
+[info] - should return 16 dollar pay if start and end is between midnight and end
