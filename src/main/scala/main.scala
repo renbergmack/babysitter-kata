@@ -50,7 +50,22 @@ trait BabysitterTools {
   }
 
   def payFromBedtimeToMidnight(start: Int, end: Int): Int = {
-    1
+    val bedtimeToMidnightPay: Int = 8
+    (start, end) match {
+      case (startTime, endTime) if (startTime <= 2100 && (endTime >= 2100 || endTime <= 400)) => {
+        val hoursMilitaryTime = startTime - 2400
+        val numberOfHours = hoursMilitaryTime / 100
+        val payToMidnight = numberOfHours * bedtimeToMidnightPay
+        Math.abs(payToMidnight)
+      }
+      case (startTime, endTime) if (startTime >= 2100 && endTime <= 2400) => {
+        val hoursMilitaryTime = startTime - endTime
+        val numberOfHours = hoursMilitaryTime / 100
+        val payToMidnight = numberOfHours * bedtimeToMidnightPay
+        Math.abs(payToMidnight)
+      }
+      case (startTime, _) if (startTime <= 2400 || (100 <= startTime && startTime <= 400)) => 0
+    }
   }
 }
 
