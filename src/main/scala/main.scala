@@ -13,7 +13,11 @@ trait BabysitterTools {
   }
 
   def validateEndTime(end: Int): Int = {
-    ???
+    if(400 > end) {
+      end
+    } else {
+      400
+    }
   }
 }
 
@@ -24,4 +28,10 @@ object BabysitterBoot extends BabysitterTools with App {
   val inputStart: String = scala.io.StdIn.readLine().toString
   val validStart = validateStartTime(inputStart.toInt)
   println("validStart: " + validStart)
+
+  println("What was your end time? Please enter UTC military time.")
+  println("Ex: 4:00 a.m. '400'")
+  val inputEnd: String = scala.io.StdIn.readLine().toString
+  val validEnd = validateEndTime(inputEnd.toInt)
+  println("validEnd: " + validEnd)
 }

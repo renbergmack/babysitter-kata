@@ -2,3 +2,6 @@
 [info] validateStartTime
 [info] - should return a 1700 when an earlier start time is declared
 [info] - should return a the time when a time later than 1700 is declared
+[info] validateEndTime
+[info] - should return 0400 when a time later than 0400 is declared
+[info] - should return the end time when a time earlier than 0400 is declared
