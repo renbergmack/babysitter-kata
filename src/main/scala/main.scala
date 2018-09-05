@@ -6,6 +6,8 @@ trait BabysitterTools {
 
   val START_CUTOFF = 1700
   val END_CUTOFF = 400
+  val BEDTIME = 2100
+  val MIDNIGHT = 2400
 
   def setStartTime(babysitterStart: Int): Int = {
     if(START_CUTOFF < babysitterStart) {
@@ -35,67 +37,98 @@ trait BabysitterTools {
     }
   }
 
+  def calculatePay(payRate: Int, hoursMilitaryTime: Int): Int = {
+    val numberOfHours = hoursMilitaryTime / 100
+    val payToBedtime = numberOfHours * payRate
+    Math.abs(payToBedtime)
+  }
+
+  def startTimeAfterStartCutoff(startTime: Int): Boolean = {
+    startTime >= START_CUTOFF
+  }
+
+  def endTimeAfterStartCutoff(startTime: Int): Boolean = {
+    startTime >= START_CUTOFF
+  }
+
+  def endTimeBeforeEndCutoff(startTime: Int): Boolean = {
+    startTime >= END_CUTOFF
+  }
+
   def payFromStartToBedtime(start: Int, end: Int): Int = {
     val startToBedtimePay: Int = 12
     (start, end) match {
-      case (startTime, _) if (startTime >= 2100) => 0
-      case (startTime, endTime) if (startTime >= 1700 && endTime >= 1700) => {
-        val hoursMilitaryTime = startTime - endTime
-        val numberOfHours = hoursMilitaryTime / 100
-        val payToBedtime = numberOfHours * startToBedtimePay
-        Math.abs(payToBedtime)
-      }
-
-      case (startTime, endTime) if (startTime >= 1700 && endTime <= 400) => {
-        val hoursMilitaryTime = startTime - (endTime + 1700)
-        val numberOfHours = hoursMilitaryTime / 100
-        val payToBedtime = numberOfHours * startToBedtimePay
-        Math.abs(payToBedtime)
-      }
+      case (startTime, _) if (startTime >= BEDTIME) => 0
+      case (startTime, endTime) if (startTimeAfterStartCutoff(startTime) && endTimeAfterStartCutoff(endTime)) =>
+        val workedHours = startTime - endTime
+        calculatePay(startToBedtimePay, workedHours)
+      case (startTime, endTime) if (startTimeAfterStartCutoff(startTime) && endTimeBeforeEndCutoff(endTime)) =>
+        val workedHours = startTime - (endTime + START_CUTOFF)
+        calculatePay(startToBedtimePay, workedHours)
     }
+  }
+
+  def startTimeIsBeforeBedtime(startTime: Int): Boolean = {
+    startTime <= BEDTIME
+  }
+
+  def timeIsAfterBedtime(time: Int): Boolean = {
+    time >= BEDTIME
+  }
+
+  def timeIsBeforeEndCutoff(time: Int): Boolean = {
+    time <= END_CUTOFF
+  }
+
+  def timeIsAfterEndCutoff(time: Int): Boolean = {
+    time >= END_CUTOFF
+  }
+
+  def timeIsBeforeMidnight(time: Int): Boolean = {
+    time <= MIDNIGHT
+  }
+
+  def timeBetweenMidnightAndEndCutoff(time: Int): Boolean = {
+    time == MIDNIGHT || timeIsBeforeEndCutoff(time)
   }
 
   def payFromBedtimeToMidnight(start: Int, end: Int): Int = {
     val bedtimeToMidnightPay: Int = 8
     (start, end) match {
-      case (startTime, endTime) if (startTime <= 2100 && (endTime >= 2100 || endTime <= 400)) => {
-        val hoursMilitaryTime = startTime - 2400
-        val numberOfHours = hoursMilitaryTime / 100
-        val payToMidnight = numberOfHours * bedtimeToMidnightPay
-        Math.abs(payToMidnight)
-      }
-      case (startTime, endTime) if (startTime >= 2100 && endTime <= 2400) => {
-        val hoursMilitaryTime = startTime - endTime
-        val numberOfHours = hoursMilitaryTime / 100
-        val payToMidnight = numberOfHours * bedtimeToMidnightPay
-        Math.abs(payToMidnight)
-      }
-      case (startTime, _) if (startTime <= 2400 || (100 <= startTime && startTime <= 400)) => 0
+      case (startTime, endTime)
+        if (startTimeIsBeforeBedtime(startTime) && (timeIsAfterBedtime(endTime) || timeIsBeforeEndCutoff(endTime))) =>
+          val hoursWorked = startTime - MIDNIGHT
+          calculatePay(bedtimeToMidnightPay, hoursWorked)
+      case (startTime, endTime)
+        if (timeIsAfterBedtime(startTime) && timeIsBeforeMidnight(endTime)) =>
+          val hoursWorked = startTime - endTime
+          calculatePay(bedtimeToMidnightPay, hoursWorked)
+      case (startTime, _)
+        if (timeIsBeforeMidnight(startTime) || (100 <= startTime && timeIsBeforeEndCutoff(startTime))) =>
+          0
     }
+  }
+
+  def hoursWorkedBetweenMidnightAndEnd(endTime: Int): Int = {
+    val hoursBeforeEnd = Math.abs(400 - endTime)
+    val hoursWorked = endTime - hoursBeforeEnd
+    hoursWorked
   }
 
   def payFromMidnightToEnd(start: Int, end: Int): Int = {
     val midnightToEndPay: Int = 16
       (start, end) match {
-        case (startTime, endTime) if (startTime >= 100 && startTime <= 400 && endTime <= 400) => {
-          val diff = Math.abs(400 - endTime)
-          val hoursMilitaryTime = endTime - diff
-          val numberOfHours = hoursMilitaryTime / 100
-          val payToEnd = numberOfHours * midnightToEndPay
-          Math.abs(payToEnd)
-        }
-        case (startTime, endTime) if ((startTime == 2400 || startTime <= 400) && endTime >= 400) => {
-          val diff = Math.abs(400 - endTime)
-          val hoursMilitaryTime = endTime - diff
-          val numberOfHours = hoursMilitaryTime / 100
-          val payToEnd = numberOfHours * midnightToEndPay
-          Math.abs(payToEnd)
-        }
-      case (startTime, endTime) if (startTime >= 400 && startTime <= 2400 && endTime <= 400) => {
-        val numberOfHours = endTime / 100
-        val payToEnd = numberOfHours * midnightToEndPay
-        Math.abs(payToEnd)
-      }
+        case (startTime, endTime)
+          if (startTime >= 100 && timeIsBeforeEndCutoff(startTime) && timeIsBeforeEndCutoff(endTime)) =>
+            val hoursWorked = hoursWorkedBetweenMidnightAndEnd(endTime)
+            calculatePay(midnightToEndPay, hoursWorked)
+        case (startTime, endTime)
+          if (timeBetweenMidnightAndEndCutoff(startTime) && timeIsAfterEndCutoff(endTime)) =>
+            val hoursWorked = hoursWorkedBetweenMidnightAndEnd(endTime)
+            calculatePay(midnightToEndPay, hoursWorked)
+        case (startTime, endTime)
+          if (timeIsAfterEndCutoff(startTime) && timeIsBeforeMidnight(startTime) && timeIsBeforeEndCutoff(endTime)) =>
+            calculatePay(midnightToEndPay, endTime)
     }
   }
 }
