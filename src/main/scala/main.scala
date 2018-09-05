@@ -71,7 +71,7 @@ trait BabysitterTools {
   def payFromMidnightToEnd(start: Int, end: Int): Int = {
     val midnightToEndPay: Int = 16
       (start, end) match {
-        case (startTime, endTime) if (startTime >= 100 && startTime <= 400 && (/*endTime != 2400 ||*/ endTime <= 400)) => {
+        case (startTime, endTime) if (startTime >= 100 && startTime <= 400 && endTime <= 400) => {
           val diff = Math.abs(400 - endTime)
           val hoursMilitaryTime = endTime - diff
           val numberOfHours = hoursMilitaryTime / 100
@@ -85,7 +85,11 @@ trait BabysitterTools {
           val payToEnd = numberOfHours * midnightToEndPay
           Math.abs(payToEnd)
         }
-      //case (startTime, _) if (startTime == 2400 || ) => 0
+      case (startTime, endTime) if (startTime >= 400 && startTime <= 2400 && endTime <= 400) => {
+        val numberOfHours = endTime / 100
+        val payToEnd = numberOfHours * midnightToEndPay
+        Math.abs(payToEnd)
+      }
     }
   }
 }
