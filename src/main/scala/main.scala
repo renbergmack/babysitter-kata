@@ -30,6 +30,26 @@ trait BabysitterTools {
   }
 
   def payFromStartToBedtime(start: Int, end: Int): Int = {
+    val startToBedtimePay: Int = 12
+    (start, end) match {
+      case (startTime, _) if (startTime >= 2100) => 0
+      case (startTime, endTime) if (startTime >= 1700 && endTime >= 1700) => {
+        val hoursMilitaryTime = startTime - endTime
+        val numberOfHours = hoursMilitaryTime / 100
+        val payToBedtime = numberOfHours * startToBedtimePay
+        Math.abs(payToBedtime)
+      }
+
+      case (startTime, endTime) if (startTime >= 1700 && endTime <= 400) => {
+        val hoursMilitaryTime = startTime - (endTime + 1700)
+        val numberOfHours = hoursMilitaryTime / 100
+        val payToBedtime = numberOfHours * startToBedtimePay
+        Math.abs(payToBedtime)
+      }
+    }
+  }
+
+  def payFromBedtimeToMidnight(start: Int, end: Int): Int = {
     1
   }
 }

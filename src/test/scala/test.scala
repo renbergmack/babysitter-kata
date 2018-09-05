@@ -40,7 +40,7 @@ class BabysitterTest extends FlatSpec with BabysitterTools {
     roundToNearestHour(evenStart) should be (1700)
   }
 
-  "payFromStartToBedtime" should "return no pay if start time is past bedtime(2100)" in {
+  "payFromStartToBedtime" should "return no pay if start is past bedtime(2100)" in {
     val start = 2100
     val end = 400
     payFromStartToBedtime(start, end) should be (0)
@@ -48,7 +48,31 @@ class BabysitterTest extends FlatSpec with BabysitterTools {
 
   it should "return 12 dollar pay if start is before bedtime(2100)" in {
     val start = 1700
+    val end = 2100
+    payFromStartToBedtime(start, end) should be (48)
+  }
+
+  it should "return 12 dollar pay if end is greater than(2100)" in {
+    val start = 1700
     val end = 400
     payFromStartToBedtime(start, end) should be (48)
   }
+
+  it should "return 12 dollar pay if end is less than(2100)" in {
+    val start = 1700
+    val end = 2000
+    payFromStartToBedtime(start, end) should be (36)
+  }
+
+  // "payFromBedtimeToMidnight" should "return no pay if start time is past bedtime(2400)" in {
+  //   val start = 2100
+  //   val end = 400
+  //   payFromStartToBedtime(start, end) should be (0)
+  // }
+  //
+  // it should "return 8 dollar pay if start is after bedtime(2100)" in {
+  //   val start = 1700
+  //   val end = 400
+  //   payFromStartToBedtime(start, end) should be (48)
+  // }
 }
