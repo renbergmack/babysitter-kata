@@ -1,9 +1,8 @@
-[debug] Running TaskDef(org.babysitter.BabysitterTest, org.scalatest.tools.Framework$$anon$1@767c7ba9, false, [SuiteSelector])
-[info] Run completed in 983 milliseconds.
+[debug] Running TaskDef(org.babysitter.BabysitterTest, org.scalatest.tools.Framework$$anon$1@67489903, false, [SuiteSelector])
+[info] Run completed in 732 milliseconds.
 [info] Total number of tests run: 7
 [info] Suites: completed 1, aborted 0
-[info] Tests: succeeded 4, failed 3, canceled 0, ignored 0, pending 0
-[info] *** 3 TESTS FAILED ***
-[error] Failed tests:
-[error] 	org.babysitter.BabysitterTest
-[error] (test:test) sbt.TestsFailedException: Tests unsuccessful
+[info] Tests: succeeded 7, failed 0, canceled 0, ignored 0, pending 0
+[info] All tests passed.
+[debug] Passed tests:
+[debug] 	org.babysitter.BabysitterTest

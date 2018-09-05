@@ -21,7 +21,12 @@ trait BabysitterTools {
   }
 
   def roundToNearestHour(time: Int): Int = {
-    time
+    val minutes = time % 100
+    if(minutes <= 30){
+      time - minutes
+    } else {
+      (time - minutes) + 100
+    }
   }
 }
 

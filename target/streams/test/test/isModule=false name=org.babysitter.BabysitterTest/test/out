@@ -6,9 +6,6 @@
 [info] - should return 0400 when a time later than 0400 is declared
 [info] - should return the end time when a time earlier than 0400 is declared
 [info] roundToNearestHour
-[info] - should return closest hourly time when minutes less than 30 *** FAILED ***
-[info]   1725 was not equal to 1700 (test.scala:30)
-[info] - should return closest hourly time when minutes more than 30 *** FAILED ***
-[info]   1735 was not equal to 1800 (test.scala:35)
-[info] - should return earlier hourly time when minutes equal to 30 *** FAILED ***
-[info]   1730 was not equal to 1700 (test.scala:40)
+[info] - should return closest hourly time when minutes less than 30
+[info] - should return closest hourly time when minutes more than 30
+[info] - should return earlier hourly time when minutes equal to 30
