@@ -1,0 +1,4 @@
+[info] BabysitterTest:
+[info] validateStartTime
+[info] - should return a 1700 when an earlier start time is declared
+[info] - should return a the time when a time later than 1700 is declared
