@@ -14,6 +14,7 @@
 [info] - should return 12 dollar pay if start is before bedtime
 [info] - should return 12 dollar pay if end is after bedtime
 [info] - should return 12 dollar pay if end is before bedtime
+[info] - should return 12 dollar pay if start is before bedtime and end is after midnight
 [info] payFromBedtimeToMidnight
 [info] - should return no pay if start time is past midnight(2400)
 [info] - should return 8 dollar pay if start is at bedtime
