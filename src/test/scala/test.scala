@@ -16,8 +16,12 @@ class BabysitterTest extends FlatSpec with BabysitterTools {
   }
 
   "validateEndTime" should "return 0400 when a time later than 0400 is declared" in {
+    val lateEnd = 500
+    val validateEndTime(lateEnd) should be (400)
   }
 
   it should "return the end time when a time earlier than 0400 is declared" in {
+    val earlyEnd: Int = 300
+    validateStartTime(earlyEnd) should be (300)
   }
 }

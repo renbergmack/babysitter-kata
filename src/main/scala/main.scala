@@ -11,6 +11,10 @@ trait BabysitterTools {
       1700
     }
   }
+
+  def validateEndTime(end: Int): Int = {
+    ???
+  }
 }
 
 object BabysitterBoot extends BabysitterTools with App {
