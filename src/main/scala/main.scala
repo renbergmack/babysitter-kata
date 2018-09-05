@@ -4,28 +4,34 @@ import java.util._
 
 trait BabysitterTools {
 
-  def validateStartTime(start: Int): Int = {
-    if(1700 < start) {
-      start
+  val START_CUTOFF = 1700
+  val END_CUTOFF = 400
+
+  def setStartTime(babysitterStart: Int): Int = {
+    if(START_CUTOFF < babysitterStart) {
+      babysitterStart
     } else {
-      1700
+      START_CUTOFF
     }
   }
 
-  def validateEndTime(end: Int): Int = {
-    if(400 > end) {
-      end
+  def setEndTime(babysitterEnd: Int): Int = {
+    if(END_CUTOFF > babysitterEnd) {
+      babysitterEnd
     } else {
-      400
+      END_CUTOFF
     }
   }
 
-  def roundToNearestHour(time: Int): Int = {
-    val minutes = time % 100
+  def roundToNearestHour(hourlyMilitaryTime: Int): Int = {
+    val minutes = hourlyMilitaryTime % 100
     if(minutes <= 30){
-      time - minutes
+      val previousHour = hourlyMilitaryTime - minutes
+      previousHour
     } else {
-      (time - minutes) + 100
+      val previousHour = hourlyMilitaryTime - minutes
+      val nextHour = previousHour + 100
+      nextHour
     }
   }
 
@@ -99,12 +105,12 @@ object BabysitterBoot extends BabysitterTools with App {
   println("What was your start time? Please enter UTC military time.")
   println("Ex: 5:00 p.m. '1700'")
   val inputStart: String = scala.io.StdIn.readLine().toString
-  val validStart = validateStartTime(inputStart.toInt)
+  val validStart = setStartTime(inputStart.toInt)
   println("validStart: " + validStart)
 
   println("What was your end time? Please enter UTC military time.")
   println("Ex: 4:00 a.m. '400'")
   val inputEnd: String = scala.io.StdIn.readLine().toString
-  val validEnd = validateEndTime(inputEnd.toInt)
+  val validEnd = setEndTime(inputEnd.toInt)
   println("validEnd: " + validEnd)
 }
