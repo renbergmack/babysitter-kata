@@ -8,7 +8,7 @@ trait BabysitterTools {
   val END_CUTOFF = 400
 
   def setStartTime(babysitterStart: Int): Int = {
-    if(START_CUTOFF < babysitterStart) {
+    if (START_CUTOFF < babysitterStart) {
       babysitterStart
     } else {
       START_CUTOFF
@@ -16,7 +16,7 @@ trait BabysitterTools {
   }
 
   def setEndTime(babysitterEnd: Int): Int = {
-    if(END_CUTOFF > babysitterEnd) {
+    if (END_CUTOFF > babysitterEnd) {
       babysitterEnd
     } else {
       END_CUTOFF
@@ -25,11 +25,10 @@ trait BabysitterTools {
 
   def roundToNearestHour(hourlyMilitaryTime: Int): Int = {
     val minutes = hourlyMilitaryTime % 100
-    if(minutes <= 30){
-      val previousHour = hourlyMilitaryTime - minutes
+    val previousHour = hourlyMilitaryTime - minutes
+    if (minutes <= 30) {
       previousHour
     } else {
-      val previousHour = hourlyMilitaryTime - minutes
       val nextHour = previousHour + 100
       nextHour
     }
