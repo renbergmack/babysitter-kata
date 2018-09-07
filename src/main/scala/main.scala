@@ -35,13 +35,13 @@ trait BabysitterTools {
   }
 
   def calculatePay(payRate: Int, hoursMilitaryTime: Int): Int = {
-    val numberOfHours = hoursMilitaryTime / 100
-    val payToBedtime = numberOfHours * payRate
+    val hours = hoursMilitaryTime / 100
+    val payToBedtime = hours * payRate
     Math.abs(payToBedtime)
   }
 
   def hoursWorkedBetweenMidnightAndEnd(end: Int): Int = {
-    val hoursBeforeEnd = Math.abs(400 - end)
+    val hoursBeforeEnd = Math.abs(END_CUTOFF - end)
     val hoursWorked = end - hoursBeforeEnd
     hoursWorked
   }
@@ -58,7 +58,7 @@ trait BabysitterTools {
     start >= 100
   }
 
-  def endTimeAfterStartCutoff(end: Int): Boolean = {
+  def endAfterStartCutoff(end: Int): Boolean = {
     end >= START_CUTOFF
   }
 
@@ -86,7 +86,7 @@ trait BabysitterTools {
     val startToBedtimePay: Int = 12
     if (timeIsAfterBedtime(start)) {
       0
-    } else if (startTimeAfterStartCutoff(start) && endTimeAfterStartCutoff(end)) {
+    } else if (startTimeAfterStartCutoff(start) && endAfterStartCutoff(end)) {
       val workedHours = start - end
       calculatePay(startToBedtimePay, workedHours)
     } else if (startTimeAfterStartCutoff(start) && timeIsAfterEndCutoff(end)) {
