@@ -46,32 +46,20 @@ trait BabysitterTools {
     hoursWorked
   }
 
-  def startTimeAfterStartCutoff(start: Int): Boolean = {
-    start >= START_CUTOFF
-  }
-
-  def startTimeIsBeforeBedtime(start: Int): Boolean = {
-    start <= BEDTIME
-  }
-
-  def startIsAfterMidnight(start: Int): Boolean = {
+  def timeIsAfterMidnight(start: Int): Boolean = {
     start >= 100
   }
 
-  def endAfterStartCutoff(end: Int): Boolean = {
-    end >= START_CUTOFF
+  def timeAfterStartCutoff(start: Int): Boolean = {
+    start >= START_CUTOFF
+  }
+
+  def timeIsBeforeBedtime(start: Int): Boolean = {
+    start <= BEDTIME
   }
 
   def timeIsAfterBedtime(time: Int): Boolean = {
     time >= BEDTIME
-  }
-
-  def timeIsBeforeEndCutoff(time: Int): Boolean = {
-    time <= END_CUTOFF
-  }
-
-  def timeIsAfterEndCutoff(time: Int): Boolean = {
-    time >= END_CUTOFF
   }
 
   def timeIsBeforeMidnight(time: Int): Boolean = {
@@ -82,17 +70,25 @@ trait BabysitterTools {
     time == MIDNIGHT || timeIsBeforeEndCutoff(time)
   }
 
+  def timeIsBeforeEndCutoff(time: Int): Boolean = {
+    time <= END_CUTOFF
+  }
+
+  def timeIsAfterEndCutoff(time: Int): Boolean = {
+    time >= END_CUTOFF
+  }
+
   def payFromStartToBedtime(start: Int, end: Int): Int = {
     val startToBedtimePay: Int = 12
     if (timeIsAfterBedtime(start)) {
       0
-    } else if (startTimeAfterStartCutoff(start) && endAfterStartCutoff(end)) {
+    } else if (timeAfterStartCutoff(start) && timeAfterStartCutoff(end)) {
       val workedHours = start - end
       calculatePay(startToBedtimePay, workedHours)
-    } else if (startTimeAfterStartCutoff(start) && timeIsAfterEndCutoff(end)) {
+    } else if (timeAfterStartCutoff(start) && timeIsAfterEndCutoff(end)) {
       val workedHours = start - (end + START_CUTOFF)
       calculatePay(startToBedtimePay, workedHours)
-    } else if (startTimeAfterStartCutoff(start) && timeIsBeforeEndCutoff(end)) {
+    } else if (timeAfterStartCutoff(start) && timeIsBeforeEndCutoff(end)) {
       val workedHours = BEDTIME - start
       calculatePay(startToBedtimePay, workedHours)
     } else {
@@ -105,13 +101,13 @@ trait BabysitterTools {
     val bedtimeToMidnightPay: Int = 8
     if (start < BEDTIME && (timeIsBeforeEndCutoff(end) || end == MIDNIGHT)) {
       calculatePay(bedtimeToMidnightPay, 300)
-    } else if (startTimeIsBeforeBedtime(start) && (timeIsAfterBedtime(end) || timeIsBeforeEndCutoff(end))) {
+    } else if (timeIsBeforeBedtime(start) && (timeIsAfterBedtime(end) || timeIsBeforeEndCutoff(end))) {
       val hoursWorked = start - MIDNIGHT
       calculatePay(bedtimeToMidnightPay, hoursWorked)
     } else if (timeIsAfterBedtime(start) && timeIsBeforeMidnight(end)) {
       val hoursWorked = start - end
       calculatePay(bedtimeToMidnightPay, hoursWorked)
-    } else if (timeIsBeforeMidnight(start) || (startIsAfterMidnight(start) && timeIsBeforeEndCutoff(start))) {
+    } else if (timeIsBeforeMidnight(start) || (timeIsAfterMidnight(start) && timeIsBeforeEndCutoff(start))) {
       0
     } else {
       println(s"Pay from bedtime to midnight could not be calculated. Start: ${start}, End: ${end}")
@@ -121,7 +117,7 @@ trait BabysitterTools {
 
   def payFromMidnightToEnd(start: Int, end: Int): Int = {
     val midnightToEndPay: Int = 16
-    if (startIsAfterMidnight(start) && timeIsBeforeEndCutoff(start) && timeIsBeforeEndCutoff(end)) {
+    if (timeIsAfterMidnight(start) && timeIsBeforeEndCutoff(start) && timeIsBeforeEndCutoff(end)) {
       val hoursWorked = hoursWorkedBetweenMidnightAndEnd(end)
       calculatePay(midnightToEndPay, hoursWorked)
     } else if (timeBetweenMidnightAndEndCutoff(start) && timeIsAfterEndCutoff(end)) {
