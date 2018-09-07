@@ -5,14 +5,14 @@ import Matchers._
 
 class BabysitterTest extends FlatSpec with BabysitterTools {
 
-  "setStartTime" should "return a 1700 when an earlier start time is declared" in {
+  "setStartTime" should "return 1700 when an earlier start time is declared" in {
     val earlierStart: Int = 1600
     setStartTime(earlierStart) should be (1700)
   }
 
   it should "return a the time when a time later than 1700 is declared" in {
-    val earlierStart: Int = 1800
-    setStartTime(earlierStart) should be (1800)
+    val lateStart: Int = 1800
+    setStartTime(lateStart) should be (1800)
   }
 
   "setEndTime" should "return 400 when a time later than 400 is declared" in {
@@ -36,8 +36,8 @@ class BabysitterTest extends FlatSpec with BabysitterTools {
   }
 
   it should "return earlier hourly time when minutes equal to 30" in {
-    val evenStart: Int = 1730
-    roundToNearestHour(evenStart) should be (1700)
+    val earlyStart: Int = 1730
+    roundToNearestHour(earlyStart) should be (1700)
   }
 
   "payFromStartToBedtime" should "return no pay if start is past bedtime(2100)" in {
@@ -70,7 +70,7 @@ class BabysitterTest extends FlatSpec with BabysitterTools {
     payFromStartToBedtime(start, end) should be (36)
   }
 
-  "payFromBedtimeToMidnight" should "return no pay if start time is past midnight(2400)" in {
+  "payFromBedtimeToMidnight" should "return no pay if start is past midnight(2400)" in {
     val start = 2400
     val end = 2400
     payFromBedtimeToMidnight(start, end) should be (0)
@@ -100,7 +100,7 @@ class BabysitterTest extends FlatSpec with BabysitterTools {
     payFromBedtimeToMidnight(start, end) should be (24)
   }
 
-  "payFromMidnightToEnd" should "return pay if start time is past end(400)" in {
+  "payFromMidnightToEnd" should "return pay if start is past end(400)" in {
     val start = 500
     val end = 400
     payFromMidnightToEnd(start, end) should be (64)
