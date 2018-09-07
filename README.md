@@ -6,7 +6,7 @@
 3. clone this project down onto your computer
 4. navigate to the project folder, one level in type "sbt"
 5. type compile
-6. type "run main" optionally run test
+6. type "run main" optionally "run test"
 7. type "1700" for startTime (this is done in military time)
 7. type "400" for endTime (this is done in military time)
 8. have fun
